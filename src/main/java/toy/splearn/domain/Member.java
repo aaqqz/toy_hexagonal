@@ -1,6 +1,7 @@
 package toy.splearn.domain;
 
 import lombok.Getter;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 import java.util.Objects;
