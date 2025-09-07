@@ -1,21 +1,13 @@
 package toy.splearn.application.provided;
 
-import org.junit.jupiter.api.Test;
-import org.springframework.test.util.ReflectionTestUtils;
-import toy.splearn.application.MemberService;
 import toy.splearn.application.required.EmailSender;
-import toy.splearn.application.required.MemberRepository;
 import toy.splearn.domain.Email;
-import toy.splearn.domain.Member;
-import toy.splearn.domain.MemberStatus;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static toy.splearn.domain.MemberFixture.createMemberRegisterRequest;
-import static toy.splearn.domain.MemberFixture.createPasswordEncoder;
 
 // 여러가지 테스트 방법 (stub, mock, mockito) 참고용 (MemberRegisterTest 실전은 여기)
 class MemberRegisterManualTest {

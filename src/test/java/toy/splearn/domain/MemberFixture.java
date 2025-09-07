@@ -3,7 +3,7 @@ package toy.splearn.domain;
 public class MemberFixture {
 
     public static MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "nickname", "secret");
+        return new MemberRegisterRequest(email, "Charlie", "topsecret");
     }
 
     public static MemberRegisterRequest createMemberRegisterRequest() {

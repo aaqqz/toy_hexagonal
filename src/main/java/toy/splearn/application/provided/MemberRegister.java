@@ -1,5 +1,6 @@
 package toy.splearn.application.provided;
 
+import jakarta.validation.Valid;
 import toy.splearn.domain.Member;
 import toy.splearn.domain.MemberRegisterRequest;
 
@@ -8,5 +9,7 @@ import toy.splearn.domain.MemberRegisterRequest;
  */
 public interface MemberRegister {
 
-    Member register(MemberRegisterRequest registerRequest);
+    Member register(@Valid MemberRegisterRequest registerRequest);
+
+    Member activate(Long memberId);
 }
