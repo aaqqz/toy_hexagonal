@@ -5,31 +5,22 @@ import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static toy.splearn.domain.MemberFixture.createMemberRegisterRequest;
+import static toy.splearn.domain.MemberFixture.createPasswordEncoder;
 
 class MemberTest {
+
     Member member;
     PasswordEncoder passwordEncoder;
 
     @BeforeEach
     void setUp() {
-        this.passwordEncoder = new PasswordEncoder() {
-            @Override
-            public String encode(String password) {
-                return password.toUpperCase();
-            }
-
-            @Override
-            public boolean matches(String password, String passwordHash) {
-                return password.equals(passwordHash);
-            }
-        };
-
-        MemberCreateRequest memberCreateRequest = new MemberCreateRequest("splearn@email.com", "nickname", "secret");
-        member = Member.create(memberCreateRequest, passwordEncoder);
+        this.passwordEncoder = createPasswordEncoder();
+        member = Member.register(createMemberRegisterRequest(), passwordEncoder);
     }
 
     @Test
-    void createMember() {
+    void registerMember() {
         assertThat(member.getStatus()).isEqualTo(MemberStatus.PENDING);
     }
 
@@ -107,9 +98,9 @@ class MemberTest {
 
     @Test
     void invalidEmail() {
-        assertThatThrownBy(() -> Member.create(new MemberCreateRequest("invalid", "nickname", "secret"), passwordEncoder))
+        assertThatThrownBy(() -> Member.register(createMemberRegisterRequest("invalid email"), passwordEncoder))
                 .isInstanceOf(IllegalArgumentException.class);
 
-        Member.create(new MemberCreateRequest("splearn@mail.com", "nickname", "secret"), passwordEncoder);
+        Member.register(createMemberRegisterRequest(), passwordEncoder);
     }
 }
