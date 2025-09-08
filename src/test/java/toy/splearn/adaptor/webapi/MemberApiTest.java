@@ -19,6 +19,7 @@ import toy.splearn.domain.member.MemberRegisterRequest;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 
 @WebMvcTest(MemberApi.class)
 @RequiredArgsConstructor
@@ -44,6 +45,7 @@ class MemberApiTest {
                 .exchange();
 
         Assertions.assertThat(result)
+                .apply(print())
                 .hasStatusOk()
                 .bodyJson()
                 .extractingPath("$.memberId").asNumber().isEqualTo(1);
@@ -63,6 +65,7 @@ class MemberApiTest {
                 .exchange();
 
         Assertions.assertThat(result)
+                .apply(print())
                 .hasStatus(HttpStatus.BAD_REQUEST);
     }
 }
