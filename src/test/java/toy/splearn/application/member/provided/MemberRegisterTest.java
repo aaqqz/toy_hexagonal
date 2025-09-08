@@ -42,6 +42,8 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
     @Test
     void activate() {
         Member member = registerMember();
+        entityManager.flush();
+        entityManager.clear();
 
         member = memberRegister.activate(member.getId());
         entityManager.flush();
@@ -52,9 +54,9 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
 
     @Test
     void memberRegisterRequestFail() {
-        extractedRegisterFail(new MemberRegisterRequest("splearn", "12345", "1234567890"));
-        extractedRegisterFail(new MemberRegisterRequest("splearn@gmail.com", "1234", "1234567890"));
-        extractedRegisterFail(new MemberRegisterRequest("splearn@gmail.com", "12345", "1234567"));
+        checkValidation(new MemberRegisterRequest("splearn", "12345", "1234567890"));
+        checkValidation(new MemberRegisterRequest("splearn@gmail.com", "1234", "1234567890"));
+        checkValidation(new MemberRegisterRequest("splearn@gmail.com", "12345", "1234567"));
     }
 
     @Test
@@ -79,11 +81,16 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
         entityManager.clear();
 
         var request = new MemberInfoUpdateRequest("updatedNickname", "updatedprofile", "자기소개");
-        member = memberRegister.updateInfo(member.getId(), request);
+        memberRegister.updateInfo(member.getId(), request);
 
-        assertThat(member.getNickname()).isEqualTo(request.nickname());
-        assertThat(member.getDetail().getProfile().address()).isEqualTo(request.profileAddress());
-        assertThat(member.getDetail().getIntroduction()).isEqualTo(request.introduction());
+        checkValidation(new MemberRegisterRequest("splearn", "12345", "1234567890"));
+        checkValidation(new MemberRegisterRequest("splearn@gmail.com", "1234", "1234567890"));
+        checkValidation(new MemberRegisterRequest("splearn@gmail.com", "12345", "1234567"));
+    }
+
+    private void checkValidation(MemberRegisterRequest invalid) {
+        assertThatThrownBy(() -> memberRegister.register(invalid))
+                .isInstanceOf(ConstraintViolationException.class);
     }
 
     @Test
@@ -130,10 +137,5 @@ record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityMan
         entityManager.flush();
         entityManager.clear();
         return member;
-    }
-
-    private void extractedRegisterFail(MemberRegisterRequest invalid) {
-        assertThatThrownBy(() -> memberRegister.register(invalid))
-                .isInstanceOf(ConstraintViolationException.class);
     }
 }

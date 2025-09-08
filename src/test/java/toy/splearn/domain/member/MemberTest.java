@@ -1,10 +1,10 @@
-package toy.splearn.domain;
+package toy.splearn.domain.member;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
-import static org.assertj.core.api.Assertions.*;
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static toy.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
 import static toy.splearn.domain.member.MemberFixture.createPasswordEncoder;
 
@@ -28,6 +28,7 @@ class MemberTest {
     @Test
     void activate() {
         assertThat(member.getDetail().getActivatedAt()).isNull();
+
         member.activate();
 
         assertThat(member.getStatus()).isEqualTo(MemberStatus.ACTIVE);
@@ -58,7 +59,6 @@ class MemberTest {
                 .isInstanceOf(IllegalStateException.class);
 
         member.activate();
-
         member.deactivate();
 
         assertThatThrownBy(member::deactivate)
