@@ -1,6 +1,6 @@
-package toy.splearn.application.required;
+package toy.splearn.application.member.required;
 
-import toy.splearn.domain.Email;
+import toy.splearn.domain.shared.Email;
 
 /**
  * 이메일을 발송한다

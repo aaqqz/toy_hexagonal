@@ -1,4 +1,4 @@
-package toy.splearn.application.provided;
+package toy.splearn.application.member.provided;
 
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
@@ -9,10 +9,10 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
 import org.springframework.test.context.TestConstructor;
 import toy.splearn.SplearnTestConfiguration;
-import toy.splearn.domain.Member;
+import toy.splearn.domain.member.Member;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static toy.splearn.domain.MemberFixture.createMemberRegisterRequest;
+import static toy.splearn.domain.member.MemberFixture.createMemberRegisterRequest;
 
 @SpringBootTest
 @Transactional

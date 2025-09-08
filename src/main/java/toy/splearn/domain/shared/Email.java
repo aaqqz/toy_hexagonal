@@ -1,4 +1,4 @@
-package toy.splearn.domain;
+package toy.splearn.domain.shared;
 
 import java.util.regex.Pattern;
 
