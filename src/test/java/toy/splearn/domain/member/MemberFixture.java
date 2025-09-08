@@ -1,13 +1,15 @@
 package toy.splearn.domain.member;
 
-public class MemberFixture {
+import org.springframework.test.util.ReflectionTestUtils;
 
-    public static MemberRegisterRequest createMemberRegisterRequest(String email) {
-        return new MemberRegisterRequest(email, "Charlie", "topsecret");
-    }
+public class MemberFixture {
 
     public static MemberRegisterRequest createMemberRegisterRequest() {
         return createMemberRegisterRequest("splearn@email.com");
+    }
+
+    public static MemberRegisterRequest createMemberRegisterRequest(String email) {
+        return new MemberRegisterRequest(email, "Charlie", "topsecret");
     }
 
     public static PasswordEncoder createPasswordEncoder() {
@@ -22,5 +24,19 @@ public class MemberFixture {
                 return password.equals(passwordHash);
             }
         };
+    }
+
+    public static Member createMember() {
+        return Member.register(createMemberRegisterRequest(), createPasswordEncoder());
+    }
+
+    public static Member createMember(Long id) {
+        Member member = Member.register(createMemberRegisterRequest(), createPasswordEncoder());
+        ReflectionTestUtils.setField(member, "id", id);
+        return member;
+    }
+
+    public static Member createMember(String email) {
+        return Member.register(createMemberRegisterRequest(email), createPasswordEncoder());
     }
 }
