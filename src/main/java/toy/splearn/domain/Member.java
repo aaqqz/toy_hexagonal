@@ -2,14 +2,13 @@ package toy.splearn.domain;
 
 import jakarta.persistence.*;
 import lombok.AccessLevel;
-import lombok.Generated;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
-import static java.util.Objects.*;
-import static org.springframework.util.Assert.*;
+import static java.util.Objects.requireNonNull;
+import static org.springframework.util.Assert.state;
 
 @Getter
 @Entity
