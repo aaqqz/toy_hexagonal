@@ -26,21 +26,36 @@ repositories {
 }
 
 dependencies {
+    // spring boot
     implementation("org.springframework.boot:spring-boot-starter-data-jpa")
     implementation("org.springframework.boot:spring-boot-starter-web")
     implementation("org.springframework.boot:spring-boot-starter-validation")
+
+    // security
+    implementation("org.springframework.security:spring-security-core")
+
+    // lombok
     compileOnly("org.projectlombok:lombok")
+    annotationProcessor("org.projectlombok:lombok")
     testCompileOnly("org.projectlombok:lombok")
-    // 개발(local 개발 환경에서 실행) > developmentOnly
-    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
+    testAnnotationProcessor("org.projectlombok:lombok")
+
+    // db
     runtimeOnly("com.h2database:h2")
     runtimeOnly("com.mysql:mysql-connector-j")
-    annotationProcessor("org.projectlombok:lombok")
-    testAnnotationProcessor("org.projectlombok:lombok")
+
+    // test
     testImplementation("org.springframework.boot:spring-boot-starter-test")
     testRuntimeOnly("org.junit.platform:junit-platform-launcher")
+
+    // dev
+    developmentOnly("org.springframework.boot:spring-boot-docker-compose")
 }
 
 tasks.withType<Test> {
     useJUnitPlatform()
+}
+
+spotbugs {
+    excludeFilter.set(file("${projectDir}/spotbugs-exclude-filter.xml"))
 }

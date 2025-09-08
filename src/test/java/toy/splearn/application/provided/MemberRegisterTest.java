@@ -3,11 +3,9 @@ package toy.splearn.application.provided;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import jakarta.validation.ConstraintViolationException;
-import lombok.RequiredArgsConstructor;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.test.context.TestConstructor;
 import toy.splearn.SplearnTestConfiguration;
 import toy.splearn.domain.*;
 
@@ -17,12 +15,8 @@ import static org.assertj.core.api.Assertions.assertThatThrownBy;
 @SpringBootTest
 @Transactional
 @Import(SplearnTestConfiguration.class)
-@RequiredArgsConstructor
-@TestConstructor(autowireMode = TestConstructor.AutowireMode.ALL)
-class MemberRegisterTest {
+record MemberRegisterTest(MemberRegister memberRegister, EntityManager entityManager) {
 
-    private final MemberRegister memberRegister;
-    private final EntityManager entityManager;
     // @Transactional 으로 대체 rollback 된다
 //    @BeforeEach
 //    void setUp() {
@@ -39,7 +33,7 @@ class MemberRegisterTest {
 
     @Test
     void duplicateEmailFail() {
-        Member member1 = memberRegister.register(MemberFixture.createMemberRegisterRequest());
+        memberRegister.register(MemberFixture.createMemberRegisterRequest());
 
         assertThatThrownBy(() -> memberRegister.register(MemberFixture.createMemberRegisterRequest()))
                 .isInstanceOf(DuplicateEmailException.class);
