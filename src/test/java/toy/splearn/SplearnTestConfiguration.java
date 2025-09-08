@@ -3,10 +3,10 @@ package toy.splearn;
 import org.springframework.boot.test.context.TestConfiguration;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
-import toy.splearn.application.required.EmailSender;
-import toy.splearn.domain.Email;
-import toy.splearn.domain.MemberFixture;
-import toy.splearn.domain.PasswordEncoder;
+import toy.splearn.application.member.required.EmailSender;
+import toy.splearn.domain.shared.Email;
+import toy.splearn.domain.member.MemberFixture;
+import toy.splearn.domain.member.PasswordEncoder;
 
 @TestConfiguration
 public class SplearnTestConfiguration {

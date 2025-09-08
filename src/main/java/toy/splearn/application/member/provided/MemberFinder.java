@@ -1,6 +1,6 @@
-package toy.splearn.application.provided;
+package toy.splearn.application.member.provided;
 
-import toy.splearn.domain.Member;
+import toy.splearn.domain.member.Member;
 
 /**
  * 회원을 조회한다

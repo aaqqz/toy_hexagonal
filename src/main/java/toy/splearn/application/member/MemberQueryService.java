@@ -1,12 +1,12 @@
-package toy.splearn.application;
+package toy.splearn.application.member;
 
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.validation.annotation.Validated;
-import toy.splearn.application.provided.MemberFinder;
-import toy.splearn.application.required.MemberRepository;
-import toy.splearn.domain.Member;
+import toy.splearn.application.member.provided.MemberFinder;
+import toy.splearn.application.member.required.MemberRepository;
+import toy.splearn.domain.member.Member;
 
 @Service
 @Transactional
